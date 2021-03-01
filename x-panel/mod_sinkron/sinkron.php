@@ -19,7 +19,8 @@ if ($koneksi) {
                 if ($r <> null) {
                     //if ($r['token'] == 'tokenx') {
                     $sql = mysqli_query($koneksi, "truncate table siswa");
-                    $i = 1;
+                    $urls = [];
+                    $i = 0;
                     foreach ($r['siswa'] as $r) {
                         $sql = mysqli_query($koneksi, "insert into siswa
                             (id_siswa,id_kelas,idpk,nis,no_peserta,nama,level,ruang,sesi,username,password,foto,server,agama) values 			
@@ -63,7 +64,13 @@ if ($koneksi) {
                         } else {
                             $masuk1++;
                         }
+
+                        if (isset($r['foto'])) {
+                            $urls[$i] = $setting['url_host'] . "/foto/fotosiswa/" . $r['foto'];
+                            $i++;
+                        }
                     }
+                    multiple_download($urls, '../../foto/fotosiswa');
 
                     $exec = mysqli_query($koneksi, "update sinkron set jumlah='$masuk1', status_sinkron='1', tanggal='$datetime' where nama_data='DATA1'");
                     //} else {
