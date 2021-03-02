@@ -33,7 +33,7 @@ function url_exists($url)
 	/* Close curl connection */
 	curl_close($handle);
 }
-function multiple_download($urls, $save_path = '../files')
+function multiple_download($urls, $save_path)
 {
 	$multi_handle = curl_multi_init();
 	$file_pointers = [];

@@ -155,11 +155,11 @@ if ($koneksi) {
                             foreach ($sync['file'] as $file) {
 
                                 if ($file['id_mapel'] == $banksoal['id_mapel']) {
-                                    $urls[$i] = $setting['web'] . "/files/" . $file['nama_file'];
+                                    $urls[$i] = $setting['url_host'] . "/files/" . $file['nama_file'];
                                     $i++;
                                 }
                             }
-                            multiple_download($urls);
+                            multiple_download($urls, "../../files");
                             // }
                         }
                     }
@@ -207,9 +207,10 @@ if ($koneksi) {
                         // if ($jadwal['jenjang'] == $setting['jenjang'] or $jadwal['jenjang'] == 'semua') {
                         //    if (in_array($jadwal['id_pk'], $jurarray) or $jadwal['id_pk'] == 'semua') {
                         $sqljadwal = mysqli_query($koneksi, "insert into ujian
-                                (id_ujian,id_pk,id_guru,id_mapel,nama,jml_soal,jml_esai,bobot_pg,bobot_esai,lama_ujian,tgl_ujian,tgl_selesai,waktu_ujian,level,acak,token,hasil,kelas,tampil_pg,tampil_esai,opsi,kode_ujian,ulang,kkm,soal_agama,kode_nama) values 			
+                                (id_ujian,id_pk,id_guru,id_mapel,nama,jml_soal,jml_esai,bobot_pg,bobot_esai,lama_ujian,tgl_ujian,tgl_selesai,waktu_ujian,level,acak,token,hasil,kelas,tampil_pg,tampil_esai,opsi,kode_ujian,ulang,kkm,soal_agama,kode_nama,sesi,reset,waktuselesai,status) values 			
                                 ('$jadwal[id_ujian]','$jadwal[id_pk]','$jadwal[id_guru]','$jadwal[id_mapel]','$jadwal[nama]','$jadwal[jml_soal]','$jadwal[jml_esai]','$jadwal[bobot_pg]','$jadwal[bobot_esai]','$jadwal[lama_ujian]','$jadwal[tgl_ujian]','$jadwal[tgl_selesai]',
-                                '$jadwal[waktu_ujian]','$jadwal[level]','$jadwal[acak]','$jadwal[token]','$jadwal[hasil]','$jadwal[kelas]','$jadwal[tampil_pg]','$jadwal[tampil_esai]','$jadwal[opsi]','$jadwal[kode_ujian]','$jadwal[ulang]','$jadwal[kkm]','$jadwal[soal_agama]','$jadwal[kode_nama]')");
+                                '$jadwal[waktu_ujian]','$jadwal[level]','$jadwal[acak]','$jadwal[token]','$jadwal[hasil]','$jadwal[kelas]','$jadwal[tampil_pg]','$jadwal[tampil_esai]','$jadwal[opsi]','$jadwal[kode_ujian]','$jadwal[ulang]','$jadwal[kkm]','$jadwal[soal_agama]','$jadwal[kode_nama]',
+                                '$jadwal[sesi]','$jadwal[reset]','$jadwal[waktuselesai]','$jadwal[status]')");
                         if (!$sqljadwal) {
                             $gagal4++;
                         } else {
