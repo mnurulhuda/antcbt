@@ -190,11 +190,17 @@ if ($ac == '') :
                                                             <div class='form-group'>
                                                                 <label>Program Keahlian</label>
                                                                 <select name='id_pk[]' class='select2 form-control' required='true' multiple='multiple' style="width: 100%">
-                                                                    <option value='semua'>Semua</option>
+                                                                    <?php
+                                                                    $idpk = unserialize($mapel['idpk']);
+                                                                    if ($idpk[0] == 'semua'): ?>
+                                                                        <option value='semua' selected>Semua</option>
+                                                                    <?php else: ?>
+                                                                        <option value='semua'>Semua</option>
+                                                                    <?php endif; ?>
                                                                     <?php
                                                                     $pkQ = mysqli_query($koneksi, "SELECT * FROM pk ORDER BY program_keahlian ASC");
                                                                     while ($pk = mysqli_fetch_array($pkQ)) :
-                                                                        if (in_array($pk['id_pk'], unserialize($mapel['idpk']))) : ?>
+                                                                        if (in_array($pk['id_pk'], $idpk)) : ?>
                                                                             <option value="<?= $pk['id_pk'] ?>" selected><?= $pk['id_pk'] ?></option>"
                                                                         <?php else : ?>
                                                                             <option value="<?= $pk['id_pk'] ?>"><?= $pk['id_pk'] ?></option>"
@@ -221,10 +227,16 @@ if ($ac == '') :
                                                                 <div class='col-md-6'>
                                                                     <label>Pilih Kelas</label><br>
                                                                     <select name='kelas[]' class='form-control select2' style='width:100%' multiple required='true'>
-                                                                        <option value='semua'>Semua Kelas</option>
+                                                                        <?php
+                                                                        $idkelas = unserialize($mapel['kelas']);
+                                                                        if ($idkelas[0] == 'semua'): ?>
+                                                                            <option value='semua' selected>Semua Kelas</option>
+                                                                        <?php else: ?>
+                                                                            <option value='semua'>Semua Kelas</option>
+                                                                        <?php endif; ?>
                                                                         <?php $lev = mysqli_query($koneksi, "SELECT * FROM kelas"); ?>
                                                                         <?php while ($kelas = mysqli_fetch_array($lev)) : ?>
-                                                                            <?php if (in_array($kelas['id_kelas'], unserialize($mapel['kelas']))) : ?>
+                                                                            <?php if (in_array($kelas['id_kelas'], $idkelas)) : ?>
                                                                                 <option value="<?= $kelas['id_kelas'] ?>" selected><?= $kelas['id_kelas'] ?></option>"
                                                                             <?php else : ?>
                                                                                 <option value="<?= $kelas['id_kelas'] ?>"><?= $kelas['id_kelas'] ?></option>"

@@ -16,10 +16,13 @@ if ($pg == 'ubah') {
         'ruang'        => $_POST['ruang'],
         'level'        => $_POST['level'],
         'username'     => $_POST['username'],
-        'password'     => $_POST['pass1'],
         'server'       => $_POST['server'],
         'agama'        => $_POST['agama']
     ];
+
+    if ($_POST['pass1']) {
+        $data['password'] = $_POST['pass1'];
+    }
 
     if ($_POST['pass1'] <> $_POST['pass2']) {
         echo "password tidak sama";
