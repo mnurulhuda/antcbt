@@ -69,7 +69,7 @@ Jumlah Soal : <?= $mapel['jml_soal'] ?> PG<br />
 
 	<?php
 
-	$siswaQ = mysqli_query($koneksi, "SELECT * FROM siswa a join nilai b ON a.id_siswa=b.id_siswa where b.id_mapel='$id_ujian' ORDER BY id_kelas ASC");
+	$siswaQ = mysqli_query($koneksi, "SELECT * FROM siswa a join nilai b ON a.id_siswa=b.id_siswa where b.id_mapel='$id_ujian' AND a.id_kelas = '$id_kelas' ORDER BY a.nama ASC");
 	$betul = array();
 	$salah = array();
 	while ($siswa = mysqli_fetch_array($siswaQ)) {

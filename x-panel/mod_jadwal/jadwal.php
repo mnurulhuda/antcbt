@@ -160,7 +160,8 @@ defined('APLIKASI') or exit('Anda tidak dizinkan mengakses langsung script ini!'
                                 </div>
                             </div>
                         </div>
-                        <button name="simpan" class="btn btn-success">Simpan Semua</button>
+                        <button name="simpan" class="btn btn-success"><i class='fa fa-save'></i> Simpan Semua</button>
+                        <button name="hapus" id="buakkabeh" class="btn btn-danger"><i class='fa fa-trash'></i> Hapus Semua</button>
                     </form>
                 </div>
                 <div class="col-md-4">
@@ -190,258 +191,269 @@ defined('APLIKASI') or exit('Anda tidak dizinkan mengakses langsung script ini!'
 </div>
 
 
-<div class=''>
-    <div id='tablereset' class='table-responsive'>
-        <table class='table table-bordered table-striped ' id="example1">
-            <thead>
-                <tr>
+<div class='row'>
+    <div class='col-md-12'>
+        <div class='box box-solid'>
+            <div class='box-body'>
+                <div id='tablereset'>
+                    <table class='table table-bordered table-striped ' id="example1">
+                        <thead>
+                            <tr>
 
-                    <th width='5px'>#</th>
-                    <th>Bank Soal</th>
-                    <th>Level/Jur/Kelas</th>
-                    <th>Durasi</th>
-                    <th>Tgl Waktu Ujian</th>
-                    <th>Acak/Opsi/Token/Hasil/Reset</th>
-                    <th>Status Ujian</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-
-                if ($pengawas['level'] == 'admin') {
-                    $mapelQ = mysqli_query($koneksi, "SELECT * FROM ujian ORDER BY tgl_ujian ASC, waktu_ujian ASC");
-                } else {
-                    $mapelQ = mysqli_query($koneksi, "SELECT * FROM ujian where id_guru='$id_pengawas' ORDER BY tgl_ujian ASC, waktu_ujian ASC");
-                }
-                ?>
-                <?php while ($mapel = mysqli_fetch_array($mapelQ)) : ?>
-                    <?php if ($mapel['tgl_ujian'] > date('Y-m-d H:i:s') and $mapel['tgl_selesai'] > date('Y-m-d H:i:s')) {
-                        $color = "bg-gray";
-                        $status = "BELUM MULAI";
-                    } elseif ($mapel['tgl_ujian'] < date('Y-m-d H:i:s') and $mapel['tgl_selesai'] > date('Y-m-d H:i:s')) {
-                        $color = "bg-blue";
-                        $status = "<i class='fa fa-spinner fa-spin'></i> MULAI UJIAN";
-                    } else {
-                        $color = "bg-red";
-                        $status = "<i class='fa fa-times'></i> WAKTU HABIS";
-                    } ?>
-                    <?php
-                    $tgl = explode(" ", $mapel['tgl_ujian']);
-                    $tgl = $tgl[0];
-                    $no++;
-                    ?>
-
-                    <tr>
-                        <td><?= $no ?></td>
-                        <td>
+                                <th width='5px'>#</th>
+                                <th>Bank Soal</th>
+                                <th>Level/Jur/Kelas</th>
+                                <th>Durasi</th>
+                                <th>Tgl Waktu Ujian</th>
+                                <th>Acak/Opsi/Token/Hasil/Reset</th>
+                                <th>Status Ujian</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             <?php
-                            if ($mapel['id_pk'] == '0') {
-                                $jur = 'Semua';
+
+                            if ($pengawas['level'] == 'admin') {
+                                $mapelQ = mysqli_query($koneksi, "SELECT * FROM ujian ORDER BY tgl_ujian ASC, waktu_ujian ASC");
                             } else {
-                                $jur = $mapel['id_pk'];
+                                $mapelQ = mysqli_query($koneksi, "SELECT * FROM ujian where id_guru='$id_pengawas' ORDER BY tgl_ujian ASC, waktu_ujian ASC");
                             }
                             ?>
+                            <?php while ($mapel = mysqli_fetch_array($mapelQ)) : ?>
+                                <?php if ($mapel['tgl_ujian'] > date('Y-m-d H:i:s') and $mapel['tgl_selesai'] > date('Y-m-d H:i:s')) {
+                                    $color = "bg-gray";
+                                    $status = "BELUM MULAI";
+                                } elseif ($mapel['tgl_ujian'] < date('Y-m-d H:i:s') and $mapel['tgl_selesai'] > date('Y-m-d H:i:s')) {
+                                    $color = "bg-blue";
+                                    $status = "<i class='fa fa-spinner fa-spin'></i> MULAI UJIAN";
+                                } else {
+                                    $color = "bg-red";
+                                    $status = "<i class='fa fa-times'></i> WAKTU HABIS";
+                                } ?>
+                                <?php
+                                $tgl = explode(" ", $mapel['tgl_ujian']);
+                                $tgl = $tgl[0];
+                                $no++;
+                                ?>
 
-                            <small class='label bg-purple'><?= $mapel['kode_nama'] ?></small>
-                        </td>
-                        <td>
-                            <i class="fa fa-tag"></i> <?= $mapel['kode_ujian'] ?> &nbsp;
-                            <i class="fa fa-user"></i> <?= $mapel['level'] ?> &nbsp;
-                            <i class="fa fa-wrench"></i>
-                            <?php
-                            $dataArray = unserialize($mapel['id_pk']);
-                            foreach ($dataArray as $key => $value) :
-                                echo $value . " ";
-                            endforeach;
-                            ?>
-                            <br>
-                            <?php
-                            $dataArray = unserialize($mapel['kelas']);
-                            foreach ($dataArray as $key => $value) :
-                                echo $value . " ";
-                            endforeach;
-                            ?>
-                        </td>
-                        <td>
-                            <small class='label label-warning'>
-                                <?= $mapel['tampil_pg'] ?> Soal / <?= $mapel['lama_ujian'] ?> m / <?= $mapel['opsi'] ?> opsi</small>
-                        </td>
-                        <td>
-                            <small> <?= $mapel['tgl_ujian'] ?></small><br>
-                            <small><?= $mapel['tgl_selesai'] ?></small>
-                        </td>
+                                <tr>
+                                    <td><?= $no ?></td>
+                                    <td>
+                                        <?php
+                                        if ($mapel['id_pk'] == '0') {
+                                            $jur = 'Semua';
+                                        } else {
+                                            $jur = $mapel['id_pk'];
+                                        }
+                                        ?>
 
-                        <td>
-                            <?php
-                            if ($mapel['acak'] == 1) {
-                                echo "<label class='label label-success'>Y</label> ";
-                            } elseif ($mapel['acak'] == 0) {
-                                echo "<label class='label label-danger'>N</label> ";
-                            }
-                            if ($mapel['ulang'] == 1) {
-                                echo "<label class='label label-success'>Y</label> ";
-                            } elseif ($mapel['ulang'] == 0) {
-                                echo "<label class='label label-danger'>N</label> ";
-                            }
-                            if ($mapel['token'] == 1) {
-                                echo "<label class='label label-success'>Y</label> ";
-                            } elseif ($mapel['token'] == 0) {
-                                echo "<label class='label label-danger'>N</label> ";
-                            }
-                            if ($mapel['hasil'] == 1) {
-                                echo "<label class='label label-success'>Y</label> ";
-                            } elseif ($mapel['hasil'] == 0) {
-                                echo "<label class='label label-danger'>N</label> ";
-                            }
+                                        <small class='label bg-purple'><?= $mapel['kode_nama'] ?></small>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-tag"></i> <?= $mapel['kode_ujian'] ?> &nbsp;
+                                        <i class="fa fa-user"></i> <?= $mapel['level'] ?> &nbsp;
+                                        <i class="fa fa-wrench"></i>
+                                        <?php
+                                        $dataArray = unserialize($mapel['id_pk']);
+                                        foreach ($dataArray as $key => $value) :
+                                            echo $value . " ";
+                                        endforeach;
+                                        ?>
+                                        <br>
+                                        <?php
+                                        $dataArray = unserialize($mapel['kelas']);
+                                        foreach ($dataArray as $key => $value) :
+                                            echo $value . " ";
+                                        endforeach;
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <small class='label label-warning'>
+                                            <span data-toggle="tooltip" data-placement="top" title="Jumlah soal"><?= $mapel['tampil_pg'] ?> Soal</span> / 
+                                            <span data-toggle="tooltip" data-placement="top" title="Lama ujian"><?= $mapel['lama_ujian'] ?> m</span> / 
+                                            <span data-toggle="tooltip" data-placement="top" title="Waktu selesai"><?= $mapel['waktuselesai'] ?> m</span> / 
+                                            <span data-toggle="tooltip" data-placement="top" title="Pilihan jawaban"><?= $mapel['opsi'] ?> opsi</span>
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <small> <?= $mapel['tgl_ujian'] ?></small><br>
+                                        <small><?= $mapel['tgl_selesai'] ?></small>
+                                    </td>
 
-                            if ($mapel['reset'] == 1) {
-                                echo "<label class='label label-success'>Y</label> ";
-                            } elseif ($mapel['reset'] == 0) {
-                                echo "<label class='label label-danger'>N</label> ";
-                            }
+                                    <td>
+                                        <?php
+                                        if ($mapel['acak'] == 1) {
+                                            echo "<label class='label label-success'>Y</label> ";
+                                        } elseif ($mapel['acak'] == 0) {
+                                            echo "<label class='label label-danger'>N</label> ";
+                                        }
+                                        if ($mapel['ulang'] == 1) {
+                                            echo "<label class='label label-success'>Y</label> ";
+                                        } elseif ($mapel['ulang'] == 0) {
+                                            echo "<label class='label label-danger'>N</label> ";
+                                        }
+                                        if ($mapel['token'] == 1) {
+                                            echo "<label class='label label-success'>Y</label> ";
+                                        } elseif ($mapel['token'] == 0) {
+                                            echo "<label class='label label-danger'>N</label> ";
+                                        }
+                                        if ($mapel['hasil'] == 1) {
+                                            echo "<label class='label label-success'>Y</label> ";
+                                        } elseif ($mapel['hasil'] == 0) {
+                                            echo "<label class='label label-danger'>N</label> ";
+                                        }
 
-                            ?>
-                        </td>
-                        <td style="text-align:center">
-                            <?php
-                            if ($mapel['status'] == 1) {
-                                echo " <label class='badge bg-green'>Aktif</label> <label class='badge bg-red'>Sesi $mapel[sesi]</label>";
-                            } elseif ($mapel['status'] == 0) {
-                                echo "<label class='badge bg-red'>Tidak Aktif</label>";
-                            }
-                            ?>
-                        </td>
-                        <td style="text-align:center">
-                            <?=
-                                $status
-                            ?> <br>
-                            <i class="fa fa-circle text-green"></i>
-                            <?=
-                                $useronline = mysqli_num_rows(mysqli_query($koneksi, "select * from nilai where id_mapel='$mapel[id_mapel]' and id_ujian='$mapel[id_ujian]' and ujian_selesai is null"));
-                            ?>
-                            <i class="fa fa-circle text-danger"></i>
-                            <?=
-                                $userend = mysqli_num_rows(mysqli_query($koneksi, "select * from nilai where id_mapel='$mapel[id_mapel]' and id_ujian='$mapel[id_ujian]' and ujian_selesai <> ''"));
-                            ?>
-                        </td>
-                        <td style="text-align:center">
-                            <div class='btn-grou'>
-                                <a class='btn btn-warning btn-flat btn-xs' data-id="<?= $mapel['id_ujian'] ?>" data-toggle='modal' data-target="#edit<?= $mapel['id_ujian'] ?>"><i class='fa fa-edit'></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <?php
+                                        if ($mapel['reset'] == 1) {
+                                            echo "<label class='label label-success'>Y</label> ";
+                                        } elseif ($mapel['reset'] == 0) {
+                                            echo "<label class='label label-danger'>N</label> ";
+                                        }
 
-                    if ($setting['server'] == 'pusat') {
-                        $dis = '';
-                    } else {
-                        $dis = 'disabled';
-                    }
-                    ?>
-                    <div class='modal fade' id='edit<?= $mapel['id_ujian'] ?>' style='display: none;'>
-                        <div class='modal-dialog'>
-                            <div class='modal-content'>
-                                <div class='modal-header bg-blue'>
-                                    <h5 class='modal-title'>Edit Waktu Ujian</h5>
-
-                                </div>
-                                <form id="formedit<?= $mapel['id_ujian'] ?>">
-                                    <div class='modal-body'>
-                                        <input type='hidden' name='idm' value="<?= $mapel['id_ujian'] ?>" />
-                                        <div class="form-group">
-                                            <label for="mulaiujian">Waktu Mulai Ujian</label>
-                                            <input type="text" class="tgl form-control" name="tgl_ujian" value="<?= $mapel['tgl_ujian'] ?>" aria-describedby="helpId" placeholder="">
-                                            <small id="helpId" class="form-text text-muted">Tanggal dan waktu ujian dibuka</small>
+                                        ?>
+                                    </td>
+                                    <td style="text-align:center">
+                                        <?php
+                                        if ($mapel['status'] == 1) {
+                                            echo " <label class='badge bg-green'>Aktif</label> <label class='badge bg-red'>Sesi $mapel[sesi]</label>";
+                                        } elseif ($mapel['status'] == 0) {
+                                            echo "<label class='badge bg-red'>Tidak Aktif</label>";
+                                        }
+                                        ?>
+                                    </td>
+                                    <td style="text-align:center">
+                                        <?=
+                                            $status
+                                        ?> <br>
+                                        <i class="fa fa-circle text-green"></i>
+                                        <?=
+                                            $useronline = mysqli_num_rows(mysqli_query($koneksi, "select * from nilai where id_mapel='$mapel[id_mapel]' and id_ujian='$mapel[id_ujian]' and ujian_selesai is null"));
+                                        ?>
+                                        <i class="fa fa-circle text-danger"></i>
+                                        <?=
+                                            $userend = mysqli_num_rows(mysqli_query($koneksi, "select * from nilai where id_mapel='$mapel[id_mapel]' and id_ujian='$mapel[id_ujian]' and ujian_selesai <> ''"));
+                                        ?>
+                                    </td>
+                                    <td style="text-align:center">
+                                        <div class='btn-grou'>
+                                            <a class='btn btn-warning btn-flat btn-xs' data-id="<?= $mapel['id_ujian'] ?>" data-toggle='modal' data-target="#edit<?= $mapel['id_ujian'] ?>"><i class='fa fa-edit'></i></a>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="selesaiujian">Waktu Ujian Ditutup</label>
-                                            <input type="text" class="tgl form-control" name="tgl_selesai" value="<?= $mapel['tgl_selesai'] ?>" aria-describedby="helpId" placeholder="">
-                                            <small id="helpId" class="form-text text-muted">Tanggal dan waktu ujian ditutup</small>
-                                        </div>
-                                        <div class='form-group'>
-                                            <div class='row'>
-                                                <div class='col-md-4'>
-                                                    <label>Lama Ujian</label>
-                                                    <input type='number' name='lama_ujian' value="<?= $mapel['lama_ujian'] ?>" class='form-control' required='true' />
-                                                </div>
-                                                <div class='col-md-4'>
-                                                    <label>Waktu selesai</label>
-                                                    <i class="fas fa-question-circle text-primary"  data-toggle="tooltip" data-placement="top" title="Waktu untuk tombol selesai bisa diklik"></i>
-                                                    <input type='number' name='lama_ujian' value="<?= $mapel['waktuselesai'] ?>" class='form-control' />
-                                                </div>
-                                                <div class='col-md-4'>
-                                                    <label>Sesi</label>
-                                                    <input type='number' name='sesi' value="<?= $mapel['sesi'] ?>" class='form-control' required='true' />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='form-group'>
-                                            <label>
-                                                <input type='checkbox' class='icheckbox_square-green' name='acak' value='1' <?php if ($mapel['acak'] == 1) {
-                                                                                                                                echo "checked='true'";
-                                                                                                                            } ?> /> Acak Soal
-                                            </label>
-                                            <label>
-                                                <input type='checkbox' class='icheckbox_square-green' name='acakopsi' value='1' <?php if ($mapel['ulang'] == 1) {
-                                                                                                                                    echo "checked='true'";
-                                                                                                                                } ?> /> Acak Opsi
-                                            </label>
-                                            <label>
-                                                <input type='checkbox' class='icheckbox_square-green' name='token' value='1' <?php if ($mapel['token'] == 1) {
-                                                                                                                                    echo "checked='true'";
-                                                                                                                                } ?> /> Token Soal
-                                            </label>
-                                            <label>
-                                                <input type='checkbox' class='icheckbox_square-green' name='hasil' value='1' <?php if ($mapel['hasil'] == 1) {
-                                                                                                                                    echo "checked='true'";
-                                                                                                                                } ?> /> Hasil Tampil
-                                            </label>
-                                            <label>
-                                                <input type='checkbox' class='icheckbox_square-green' name='reset' value='1' <?php if ($mapel['reset'] == 1) {
-                                                                                                                                    echo "checked='true'";
-                                                                                                                                } ?> /> Reset Login
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class='modal-footer'>
+                                    </td>
+                                </tr>
+                                <?php
 
-                                        <center>
-                                            <button type="submit" class='btn btn-primary' name='simpan'><i class='fa fa-save'></i> Ganti Waktu Ujian</button>
-                                        </center>
-
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <script>
-                        $("#formedit<?= $mapel['id_ujian'] ?>").submit(function(e) {
-                            e.preventDefault();
-                            $.ajax({
-                                type: 'POST',
-                                url: 'mod_jadwal/crud_jadwal.php?pg=ubah',
-                                data: $(this).serialize(),
-                                success: function(data) {
-                                    iziToast.success({
-                                        title: 'Mantap!',
-                                        message: data,
-                                        position: 'topRight'
-                                    });
-                                    setTimeout(function() {
-                                        window.location.reload();
-                                    }, 2000);
+                                if ($setting['server'] == 'pusat') {
+                                    $dis = '';
+                                } else {
+                                    $dis = 'disabled';
                                 }
-                            });
-                            return false;
-                        });
-                    </script>
-                <?php endwhile ?>
-            </tbody>
-        </table>
+                                ?>
+                                <div class='modal fade' id='edit<?= $mapel['id_ujian'] ?>' style='display: none;'>
+                                    <div class='modal-dialog'>
+                                        <div class='modal-content'>
+                                            <div class='modal-header bg-blue'>
+                                                <h5 class='modal-title'>Edit Waktu Ujian</h5>
+
+                                            </div>
+                                            <form id="formedit<?= $mapel['id_ujian'] ?>">
+                                                <div class='modal-body'>
+                                                    <input type='hidden' name='idm' value="<?= $mapel['id_ujian'] ?>" />
+                                                    <div class="form-group">
+                                                        <label for="mulaiujian">Waktu Mulai Ujian</label>
+                                                        <input type="text" class="tgl form-control" name="tgl_ujian" value="<?= $mapel['tgl_ujian'] ?>" aria-describedby="helpId" placeholder="">
+                                                        <small id="helpId" class="form-text text-muted">Tanggal dan waktu ujian dibuka</small>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="selesaiujian">Waktu Ujian Ditutup</label>
+                                                        <input type="text" class="tgl form-control" name="tgl_selesai" value="<?= $mapel['tgl_selesai'] ?>" aria-describedby="helpId" placeholder="">
+                                                        <small id="helpId" class="form-text text-muted">Tanggal dan waktu ujian ditutup</small>
+                                                    </div>
+                                                    <div class='form-group'>
+                                                        <div class='row'>
+                                                            <div class='col-md-4'>
+                                                                <label>Lama Ujian</label>
+                                                                <input type='number' name='lama_ujian' value="<?= $mapel['lama_ujian'] ?>" class='form-control' required='true' />
+                                                            </div>
+                                                            <div class='col-md-4'>
+                                                                <label>Waktu selesai</label>
+                                                                <i class="fas fa-question-circle text-primary" data-toggle="tooltip" data-placement="top" title="Waktu untuk tombol selesai bisa diklik"></i>
+                                                                <input type='number' name='waktuselesai' value="<?= $mapel['waktuselesai'] ?>" class='form-control' />
+                                                            </div>
+                                                            <div class='col-md-4'>
+                                                                <label>Sesi</label>
+                                                                <input type='number' name='sesi' value="<?= $mapel['sesi'] ?>" class='form-control' required='true' />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class='form-group'>
+                                                        <label>
+                                                            <input type='checkbox' class='icheckbox_square-green' name='acak' value='1' <?php if ($mapel['acak'] == 1) {
+                                                                                                                                            echo "checked='true'";
+                                                                                                                                        } ?> /> Acak Soal
+                                                        </label>
+                                                        <label>
+                                                            <input type='checkbox' class='icheckbox_square-green' name='acakopsi' value='1' <?php if ($mapel['ulang'] == 1) {
+                                                                                                                                                echo "checked='true'";
+                                                                                                                                            } ?> /> Acak Opsi
+                                                        </label>
+                                                        <label>
+                                                            <input type='checkbox' class='icheckbox_square-green' name='token' value='1' <?php if ($mapel['token'] == 1) {
+                                                                                                                                                echo "checked='true'";
+                                                                                                                                            } ?> /> Token Soal
+                                                        </label>
+                                                        <label>
+                                                            <input type='checkbox' class='icheckbox_square-green' name='hasil' value='1' <?php if ($mapel['hasil'] == 1) {
+                                                                                                                                                echo "checked='true'";
+                                                                                                                                            } ?> /> Hasil Tampil
+                                                        </label>
+                                                        <label>
+                                                            <input type='checkbox' class='icheckbox_square-green' name='reset' value='1' <?php if ($mapel['reset'] == 1) {
+                                                                                                                                                echo "checked='true'";
+                                                                                                                                            } ?> /> Reset Login
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class='modal-footer'>
+
+                                                    <center>
+                                                        <button type="submit" class='btn btn-primary' name='simpan'><i class='fa fa-save'></i> Ganti Waktu Ujian</button>
+                                                    </center>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    $("#formedit<?= $mapel['id_ujian'] ?>").submit(function(e) {
+                                        e.preventDefault();
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: 'mod_jadwal/crud_jadwal.php?pg=ubah',
+                                            data: $(this).serialize(),
+                                            success: function(data) {
+                                                iziToast.success({
+                                                    title: 'Mantap!',
+                                                    message: data,
+                                                    position: 'topRight'
+                                                });
+                                                setTimeout(function() {
+                                                    window.location.reload();
+                                                }, 2000);
+                                            }
+                                        });
+                                        return false;
+                                    });
+                                </script>
+                            <?php endwhile ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
 
     <script>
@@ -479,6 +491,25 @@ defined('APLIKASI') or exit('Anda tidak dizinkan mengakses langsung script ini!'
                         }, 2000);
 
 
+                    }
+                });
+                return false;
+            });
+
+            $('#buakkabeh').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'mod_jadwal/crud_jadwal.php?pg=hapuskabeh',
+                    success: function(data) {
+                        iziToast.success({
+                            title: 'Mantap!',
+                            message: data,
+                            position: 'topRight'
+                        });
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000);
                     }
                 });
                 return false;

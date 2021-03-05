@@ -96,6 +96,12 @@ if ($pg == 'aktivasi') {
         }
     }
 }
+if ($pg == 'hapuskabeh') {
+    $exec = mysqli_query($koneksi, "DELETE FROM ujian");
+    if ($exec) {
+        echo "hapus";
+    }
+}
 if ($pg == 'token') {
     function create_random($length)
     {
