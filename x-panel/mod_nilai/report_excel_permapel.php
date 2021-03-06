@@ -69,14 +69,16 @@ Jumlah Soal : <?= $mapel['jml_soal'] ?> PG<br />
 
 	<?php
 
-	$siswaQ = mysqli_query($koneksi, "SELECT * FROM siswa a join nilai b ON a.id_siswa=b.id_siswa where b.id_mapel='$id_ujian' AND a.id_kelas = '$id_kelas' ORDER BY a.nama ASC");
+	$siswaQ = mysqli_query($koneksi, "SELECT * FROM siswa WHERE id_kelas = '$id_kelas' ORDER BY nama ASC");
 	$betul = array();
 	$salah = array();
 	while ($siswa = mysqli_fetch_array($siswaQ)) {
 		$no++;
 		$benar = $salah = 0;
 		$skor = $lama = '-';
-		$nilai = fetch($koneksi, 'nilai', array('id_mapel' => $id_mapel, 'id_siswa' => $siswa['id_siswa']));
+		$query_nilai = mysqli_query($koneksi, "SELECT * FROM nilai WHERE id_mapel = '".$id_mapel."' AND id_siswa = '".$siswa['id_siswa']."'");
+		$nilai = mysqli_fetch_array($query_nilai);
+		// $nilai = fetch($koneksi, 'nilai', array('id_mapel' => $id_mapel, 'id_siswa' => $siswa['id_siswa']));
 	?>
 		<tr>
 			<td><?= $no ?></td>
@@ -88,25 +90,29 @@ Jumlah Soal : <?= $mapel['jml_soal'] ?> PG<br />
 			<td class='str'><?= round($nilai['skor'], 2) ?></td>
 			<?php
 
-			$jawaban = unserialize($nilai['jawaban']);
-			foreach ($jawaban as $key => $value) {
+			if (mysqli_num_rows($query_nilai) != 0) {
+				$jawaban = unserialize($nilai['jawaban']);
+				foreach ($jawaban as $key => $value) {
 
-				$soal = mysqli_fetch_array(mysqli_query($koneksi, "select * from soal where id_soal='$key' order by nomor ASC"));
-				$nomor = $soal['nomor'];
-				if ($soal) {
-					if ($value == $soal['jawaban']) { ?>
+					$soal = mysqli_fetch_array(mysqli_query($koneksi, "select * from soal where id_soal='$key' order by nomor ASC"));
+					$nomor = $soal['nomor'];
+					if ($soal) {
+						if ($value == $soal['jawaban']) { ?>
 
-						<td style='background:#00FF00;'><?= $value ?></td>
-					<?php } else { ?>
-						<?php if ($value == 'X') { ?>
-							<td style='background:#bbd1de;'><?= $value ?></td>
+							<td style='background:#00FF00;'><?= $value ?></td>
 						<?php } else { ?>
-							<td style='background:#FF0000;'><?= $value ?></td>
-						<?php } ?>
-					<?php }
-				} else { ?>
-					<td>-</td>
-			<?php }
+							<?php if ($value == 'X') { ?>
+								<td style='background:#bbd1de;'><?= $value ?></td>
+							<?php } else { ?>
+								<td style='background:#FF0000;'><?= $value ?></td>
+							<?php } ?>
+						<?php }
+					} else { ?>
+						<td>-</td>
+				<?php }
+				}
+			} else {
+				echo "<td colspan='".$mapel['jml_soal']."'>Tidak mengikuti ujian</td>";
 			}
 			?>
 		</tr>
