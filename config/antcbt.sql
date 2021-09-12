@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Mar 2021 pada 12.24
+-- Waktu pembuatan: 12 Sep 2021 pada 13.21
 -- Versi server: 10.4.14-MariaDB
 -- Versi PHP: 7.4.10
 
@@ -114,8 +114,7 @@ CREATE TABLE `jenis` (
 --
 
 INSERT INTO `jenis` (`id_jenis`, `nama`, `status`) VALUES
-('PTS', 'Penilaian Tengah Semester', 'aktif'),
-('USBK', 'Ujian Sekolah', 'tidak');
+('UTS', 'Ujian Tengah Semester', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -143,7 +142,8 @@ CREATE TABLE `kelas` (
   `level` varchar(20) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `rombongan_belajar_id` varchar(50) DEFAULT NULL,
-  `semester_id` varchar(10) DEFAULT NULL
+  `semester_id` varchar(10) DEFAULT NULL,
+  `id_raport` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -171,79 +171,6 @@ CREATE TABLE `log` (
   `text` varchar(20) NOT NULL,
   `date` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `log`
---
-
-INSERT INTO `log` (`id_log`, `id_siswa`, `type`, `text`, `date`) VALUES
-(1, 3, 'login', 'masuk', '2020-04-12 07:58:45'),
-(2, 3, 'testongoing', 'sedang ujian', '2020-04-12 07:58:56'),
-(3, 3, 'login', 'Selesai Ujian', '2020-04-12 08:00:07'),
-(4, 3, 'testongoing', 'sedang ujian', '2020-04-12 08:00:35'),
-(5, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:43'),
-(6, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:43'),
-(7, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:43'),
-(8, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:43'),
-(9, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:43'),
-(10, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:43'),
-(11, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:43'),
-(12, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:44'),
-(13, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:44'),
-(14, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:44'),
-(15, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:44'),
-(16, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:44'),
-(17, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:44'),
-(18, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:44'),
-(19, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:44'),
-(20, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:44'),
-(21, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:44'),
-(22, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:44'),
-(23, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:45'),
-(24, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:45'),
-(25, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:45'),
-(26, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:45'),
-(27, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:45'),
-(28, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:45'),
-(29, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:45'),
-(30, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:45'),
-(31, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:45'),
-(32, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:45'),
-(33, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:46'),
-(34, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:46'),
-(35, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:46'),
-(36, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:46'),
-(37, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:46'),
-(38, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:46'),
-(39, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:46'),
-(40, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:46'),
-(41, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:46'),
-(42, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:46'),
-(43, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:47'),
-(44, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:47'),
-(45, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:47'),
-(46, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:47'),
-(47, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:47'),
-(48, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:47'),
-(49, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:47'),
-(50, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:47'),
-(51, 3, 'login', 'Selesai Ujian', '2020-04-12 08:03:47'),
-(52, 3, 'testongoing', 'sedang ujian', '2020-04-12 08:05:34'),
-(53, 3, 'login', 'Selesai Ujian', '2020-04-12 08:07:56'),
-(54, 4, 'login', 'masuk', '2020-04-12 11:26:09'),
-(55, 4, 'testongoing', 'sedang ujian', '2020-04-12 11:27:48'),
-(56, 4, 'logout', 'keluar', '2020-04-12 11:28:07'),
-(57, 4, 'login', 'masuk', '2020-04-12 11:28:16'),
-(58, 4, 'testongoing', 'sedang ujian', '2020-04-12 11:28:22'),
-(59, 4, 'login', 'Selesai Ujian', '2020-04-12 11:29:49'),
-(60, 4, 'login', 'Selesai Ujian', '2020-04-12 11:30:26'),
-(61, 4, 'testongoing', 'sedang ujian', '2020-04-12 11:36:46'),
-(62, 4, 'testongoing', 'sedang ujian', '2020-04-12 11:37:06'),
-(63, 4, 'login', 'Selesai Ujian', '2020-04-12 11:39:07'),
-(64, 4, 'login', 'Selesai Ujian', '2020-04-12 11:39:18'),
-(65, 4, 'testongoing', 'sedang ujian', '2020-04-12 11:39:56'),
-(66, 4, 'login', 'Selesai Ujian', '2020-04-12 11:42:17'),
-(67, 309, 'login', 'masuk', '2020-04-24 05:01:31');
 
 -- --------------------------------------------------------
 
@@ -281,7 +208,8 @@ CREATE TABLE `mapel` (
 CREATE TABLE `mata_pelajaran` (
   `kode_mapel` varchar(20) NOT NULL,
   `nama_mapel` varchar(50) NOT NULL,
-  `mata_pelajaran_id` varchar(10) DEFAULT NULL
+  `mata_pelajaran_id` varchar(10) DEFAULT NULL,
+  `mapel_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -303,17 +231,6 @@ CREATE TABLE `materi` (
   `tgl` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `materi`
---
-
-INSERT INTO `materi` (`id_materi`, `id_guru`, `kelas`, `mapel`, `judul`, `materi`, `file`, `tgl_mulai`, `youtube`, `tgl`, `status`) VALUES
-(6, 1, 'a:2:{i:0;s:6:\"XITKJA\";i:1;s:5:\"XTKJB\";}', 'KIMIA', 'hjhjhjh', '<p>&lt;iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/t9FtOJBJJ3c\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen&gt;&lt;/iframe&gt;</p>', NULL, '2020-04-23 09:20:00', NULL, '2020-04-23 11:23:40', 1),
-(7, 1, 'a:1:{i:0;s:5:\"XTKJB\";}', 'KIMIA', 'TEST', '<p><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/t9FtOJBJJ3c\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></p>', 'Daftar hadir piket.xlsx', '2020-04-23 18:00:00', NULL, '2020-04-23 11:40:29', 1),
-(8, 1, 'a:1:{i:0;s:5:\"semua\";}', 'KIMIA', 'aaaaaaa', '', NULL, '2020-04-24 04:00:00', 'https://www.youtube.com/embed/t9FtOJBJJ3c', '2020-04-23 21:39:19', NULL),
-(9, 260, 'a:1:{i:0;s:5:\"semua\";}', 'KIMIA', 'NEW CANDY 2.5', '<p>200000000</p>', NULL, '2020-04-24 05:00:00', '', '2020-04-23 22:01:06', NULL),
-(10, 260, 'a:1:{i:0;s:5:\"semua\";}', 'KIMIA', 'test', '<p>teststtstst</p>', NULL, '2020-04-24 09:19:00', '', '2020-04-24 02:19:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -461,39 +378,6 @@ CREATE TABLE `ruang` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `savsoft_options`
---
-
-CREATE TABLE `savsoft_options` (
-  `oid` int(11) NOT NULL,
-  `qid` int(11) NOT NULL,
-  `q_option` text NOT NULL,
-  `q_option_match` varchar(1000) DEFAULT NULL,
-  `score` float NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `savsoft_qbank`
---
-
-CREATE TABLE `savsoft_qbank` (
-  `qid` int(11) NOT NULL,
-  `question_type` varchar(100) NOT NULL DEFAULT 'Multiple Choice Single Answer',
-  `question` text NOT NULL,
-  `description` text NOT NULL,
-  `cid` int(11) NOT NULL,
-  `lid` int(11) NOT NULL,
-  `no_time_served` int(11) NOT NULL DEFAULT 0,
-  `no_time_corrected` int(11) NOT NULL DEFAULT 0,
-  `no_time_incorrected` int(11) NOT NULL DEFAULT 0,
-  `no_time_unattempted` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `semester`
 --
 
@@ -584,7 +468,7 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`id_setting`, `aplikasi`, `kode_sekolah`, `sekolah`, `jenjang`, `kepsek`, `nip`, `alamat`, `kecamatan`, `kota`, `telp`, `fax`, `web`, `email`, `logo`, `header`, `header_kartu`, `nama_ujian`, `versi`, `ip_server`, `waktu`, `server`, `id_server`, `url_host`, `token_api`, `sekolah_id`, `npsn`, `db_versi`) VALUES
-(1, 'CANDY SCHOOL', 'K0248', 'CANDY SCHOOL', 'SD', 'CANDY SCHOOL', '-', 'Perum BSD <br />\r\n', 'Karang Bahagia                                    ', 'Bekasi', '021 123 123 123', '021 95878050', 'candycbt.sch.id', 'candycbt@gmail.com', 'dist/img/logo87.png', '', 'KARTU PESERTA', 'Penilaian Tengah Semester', '2.5', 'http://192.168.0.200/candycbt', 'Asia/Jakarta', 'lokal', 'SR01', 'xxxxxx', 'VKLuYN7Lwjjwu', '8cce47df-aae7-4274-83cb-5af3093eab56', '69787351', '2.8.1');
+(1, 'ANT CBT', 'K05150115', 'SMK ABDI NEGARA TUBAN', 'SMK', 'Nanang Slamet Mulyono, M.Pd', '-', 'Jl. Dr. Wahidin SH No. 798 Tuban<br />\r\n', 'Tuban', 'Tuban', '03568832043', '-', 'smkabdinegara.sch.id', 'smk.abdinegara798@gmail.com', 'dist/img/logo30.png', '', 'KARTU PESERTA', 'Penilaian Akhir Tahun', '2.5', 'http://192.168.0.200/antcbt', 'Asia/Jakarta', 'pusat', 'SR01', 'xxxxxx', 'VKLuYN7Lwjjwu', '8cce47df-aae7-4274-83cb-5af3093eab56', '69787351', '2.8.1');
 
 -- --------------------------------------------------------
 
@@ -861,7 +745,8 @@ ALTER TABLE `materi`
 -- Indeks untuk tabel `nilai`
 --
 ALTER TABLE `nilai`
-  ADD PRIMARY KEY (`id_nilai`);
+  ADD PRIMARY KEY (`id_nilai`),
+  ADD KEY `id_mapel` (`id_mapel`);
 
 --
 -- Indeks untuk tabel `pengawas`
@@ -892,18 +777,6 @@ ALTER TABLE `referensi_jurusan`
 --
 ALTER TABLE `ruang`
   ADD PRIMARY KEY (`kode_ruang`);
-
---
--- Indeks untuk tabel `savsoft_options`
---
-ALTER TABLE `savsoft_options`
-  ADD PRIMARY KEY (`oid`);
-
---
--- Indeks untuk tabel `savsoft_qbank`
---
-ALTER TABLE `savsoft_qbank`
-  ADD PRIMARY KEY (`qid`);
 
 --
 -- Indeks untuk tabel `semester`
@@ -979,7 +852,7 @@ ALTER TABLE `berita`
 -- AUTO_INCREMENT untuk tabel `file_pendukung`
 --
 ALTER TABLE `file_pendukung`
-  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=304;
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `jawaban`
@@ -997,7 +870,7 @@ ALTER TABLE `jawaban_tugas`
 -- AUTO_INCREMENT untuk tabel `log`
 --
 ALTER TABLE `log`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `mapel`
@@ -1009,7 +882,7 @@ ALTER TABLE `mapel`
 -- AUTO_INCREMENT untuk tabel `materi`
 --
 ALTER TABLE `materi`
-  MODIFY `id_materi` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_materi` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `nilai`
@@ -1028,18 +901,6 @@ ALTER TABLE `pengawas`
 --
 ALTER TABLE `pengumuman`
   MODIFY `id_pengumuman` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT untuk tabel `savsoft_options`
---
-ALTER TABLE `savsoft_options`
-  MODIFY `oid` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `savsoft_qbank`
---
-ALTER TABLE `savsoft_qbank`
-  MODIFY `qid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `session`
@@ -1082,6 +943,16 @@ ALTER TABLE `tugas`
 --
 ALTER TABLE `ujian`
   MODIFY `id_ujian` int(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `nilai`
+--
+ALTER TABLE `nilai`
+  ADD CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
