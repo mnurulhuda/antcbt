@@ -9,7 +9,7 @@
 	$id_mapel = $_GET['id'];
 	
 	$pengawas = fetch($koneksi, 'pengawas',array('id_pengawas'=>$id_pengawas));
-	$mapel=mysqli_fetch_array(mysqli_query($koneksi, "select * from mapel where id_mapel='$id_mapel'"));
+	$mapel=mysqli_fetch_array(mysqli_query($koneksi, "select * from mapel join mata_pelajaran on mapel.nama=mata_pelajaran.kode_mapel where id_mapel='$id_mapel'"));
 	if($mapel['idpk']=='0'){
 		$jurusan='Semua Jurusan';
 	}else{
@@ -40,20 +40,22 @@
 			<table  >
 			<tr>
 			<td rowspan='5'>
-				<img src='$homeurl/$setting[logo]' width='90px'/>
+				<img src='$homeurl/$setting[logo]' width='80px' style='margin-right:20px'/>
 			</td>
-			<td width=200>Mata Pelajaran </td>
-			<td width=200>: $mapel[nama] </td> 
-			<td rowspan='5' width=300></td>					
+			<td colspan='2'><b>UJIAN AKHIR SEMESTER GENAP TP 2020/2021</b></td>					
+			</tr>
+			<tr>
+				<td width=150>Mata Pelajaran </td>
+				<td width=500>: $mapel[nama_mapel] </td> 
 			</tr>
 			<tr>
 				<td>Tingkat | Jurusan </td>
 				<td>: $mapel[level] | $jurusan </td>
 			</tr>
-			<tr>
+			<!--<tr>
 				<td>Pembuat Soal</td>
 				<td>: $guru[nama]</td>
-			</tr>
+			</tr>-->
 			<tr>
 				<td>Satuan Pendidikan</td>
 				<td>: $namasekolah[sekolah]</td>

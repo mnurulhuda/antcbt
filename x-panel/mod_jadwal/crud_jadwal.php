@@ -81,6 +81,61 @@ if ($pg == 'tambah') {
         }
     }
 }
+if ($pg == 'tambahsusulan') {
+    $wkt = explode(" ",  $_POST['tgl_ujian']);
+    $wkt_ujian = $wkt[1];
+    $acak = (isset($_POST['acak'])) ? 1 : 0;
+    $token = (isset($_POST['token'])) ? 1 : 0;
+    $hasil = (isset($_POST['hasil'])) ? 1 : 0;
+    $acakopsi = (isset($_POST['acakopsi'])) ? 1 : 0;
+    $reset = (isset($_POST['reset'])) ? 1 : 0;
+    
+    $mapel = mysqli_query($koneksi, "SELECT * FROM mapel WHERE status = '1'");
+    while ($bank = mysqli_fetch_assoc($mapel)) {
+        $data = [
+            'id_pk'     => $bank['idpk'],
+            'id_mapel'         => $bank['id_mapel'],
+            'nama'          => $bank['kode'],
+            'jml_soal'   => $bank['jml_soal'],
+            'jml_esai'         => $bank['jml_esai'],
+            'lama_ujian'         => $_POST['lama_ujian'],
+            'tgl_ujian'        => $_POST['tgl_ujian'],
+            'tgl_selesai'        => $_POST['tgl_selesai'],
+            'waktu_ujian'     => $wkt_ujian,
+            'level'     => $bank['level'],
+            'sesi'       => $_POST['sesi'],
+            'acak'        => $acak,
+            'token'        => $token,
+            'status'        => 1,
+            'bobot_pg'        => $bank['bobot_pg'],
+            'bobot_esai'        => $bank['bobot_esai'],
+            'id_guru'        => $_SESSION['id_pengawas'],
+            'tampil_pg'        => $bank['tampil_pg'],
+            'tampil_esai'        => $bank['tampil_esai'],
+            'hasil'        => $hasil,
+            'kelas'        => $bank['kelas'],
+            'opsi'        => $bank['opsi'],
+            'kode_ujian'        => $_POST['kode_ujian'],
+            'kkm'        => $bank['kkm'],
+            'ulang'        => $acakopsi,
+            'soal_agama'        => $bank['agama'],
+            'kode_nama'        => $bank['kode'],
+            'reset'        => $reset,
+            'waktuselesai' => $_POST['waktuselesai']
+        ];
+        $cek = rowcount($koneksi, 'ujian', ['kode_nama' => $bank['kode'], 'sesi' => $_POST['sesi']]);
+        if ($cek > 0) {
+            echo "jadwal sudah ada";
+        } else {
+            $exec = insert($koneksi, 'ujian', $data);
+        }
+    }
+    if ($exec) {
+        echo $exec;
+    } else {
+        echo mysqli_error($koneksi);
+    }
+}
 if ($pg == 'aktivasi') {
     foreach ($_POST['ujian'] as $ujian) {
         if ($_POST['aksi'] <> 'hapus') {

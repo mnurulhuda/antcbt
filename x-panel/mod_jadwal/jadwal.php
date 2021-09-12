@@ -110,6 +110,7 @@ defined('APLIKASI') or exit('Anda tidak dizinkan mengakses langsung script ini!'
         </div>
     </div>
 </div>
+<?php include("form_jadwal_susulan.php"); ?>
 <div class='row'>
     <div class='col-md-12'>
         <div class='box box-solid'>
@@ -117,7 +118,7 @@ defined('APLIKASI') or exit('Anda tidak dizinkan mengakses langsung script ini!'
                 <h3 class='box-title'><i class="fas fa-envelope-open-text    "></i> Aktifasi Ujian</h3>
                 <div class='box-tools pull-right '>
                     <?php if ($setting['server'] == 'pusat') : ?>
-
+                        <button class='btn btn-sm btn-flat btn-primary' data-toggle='modal' data-backdrop='static' data-target='#tambahjadwalsusulan'><i class='glyphicon glyphicon-plus'></i> <span class='hidden-xs'>Tambah Jadwal Susulan</span></button>
                         <button class='btn btn-sm btn-flat btn-success' data-toggle='modal' data-backdrop='static' data-target='#tambahjadwal'><i class='glyphicon glyphicon-plus'></i> <span class='hidden-xs'>Tambah Jadwal</span></button>
                     <?php endif ?>
                 </div>
@@ -534,6 +535,48 @@ defined('APLIKASI') or exit('Anda tidak dizinkan mengakses langsung script ini!'
             $.ajax({
                 type: 'POST',
                 url: 'mod_jadwal/crud_jadwal.php?pg=tambah',
+                data: $(this).serialize(),
+
+                success: function(data) {
+                    console.log(data);
+                    if (data == 'OK') {
+                        iziToast.success({
+                            title: 'Mantap!',
+                            message: 'data berhasil disimpan',
+                            position: 'topRight'
+                        });
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000);
+                    } else {
+                        iziToast.error({
+                            title: 'Maaf!',
+                            message: data,
+                            position: 'topRight'
+                        });
+                    }
+
+                }
+            });
+            return false;
+        });
+
+        $('#formtambahujiansusulan').submit(function(e) {
+            e.preventDefault();
+
+            if ($('#waktuselesai-tambah').val() > $('#lamaujian-tambah').val()) {
+                iziToast.error({
+                    title: 'Peringatan!',
+                    message: 'Waktu selesai tidak boleh lebih dari waktu ujian',
+                    position: 'topRight'
+                });
+                $('#waktuselesai-tambah').focus();
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: 'mod_jadwal/crud_jadwal.php?pg=tambahsusulan',
                 data: $(this).serialize(),
 
                 success: function(data) {
