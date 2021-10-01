@@ -468,7 +468,7 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`id_setting`, `aplikasi`, `kode_sekolah`, `sekolah`, `jenjang`, `kepsek`, `nip`, `alamat`, `kecamatan`, `kota`, `telp`, `fax`, `web`, `email`, `logo`, `header`, `header_kartu`, `nama_ujian`, `versi`, `ip_server`, `waktu`, `server`, `id_server`, `url_host`, `token_api`, `sekolah_id`, `npsn`, `db_versi`) VALUES
-(1, 'ANT CBT', 'K05150115', 'SMK ABDI NEGARA TUBAN', 'SMK', 'Nanang Slamet Mulyono, M.Pd', '-', 'Jl. Dr. Wahidin SH No. 798 Tuban<br />\r\n', 'Tuban', 'Tuban', '03568832043', '-', 'smkabdinegara.sch.id', 'smk.abdinegara798@gmail.com', 'dist/img/logo30.png', '', 'KARTU PESERTA', 'Penilaian Akhir Tahun', '2.5', 'http://192.168.0.200/antcbt', 'Asia/Jakarta', 'pusat', 'SR01', 'xxxxxx', 'VKLuYN7Lwjjwu', '8cce47df-aae7-4274-83cb-5af3093eab56', '69787351', '2.8.1');
+(1, 'ANT CBT', 'K05150115', 'SMK ABDI NEGARA TUBAN', 'SMK', 'Nanang Slamet Mulyono, M.Pd', '-', 'Jl. Dr. Wahidin SH No. 798 Tuban<br />\r\n', 'Tuban', 'Tuban', '03568832043', '-', 'smkabdinegara.sch.id', 'smk.abdinegara798@gmail.com', 'dist/img/logo17.png', '', 'KARTU PESERTA', 'Penilaian Akhir Tahun', '2.5', 'http://192.168.0.200/antcbt', 'Asia/Jakarta', 'pusat', 'SR01', 'xxxxxx', 'VKLuYN7Lwjjwu', '8cce47df-aae7-4274-83cb-5af3093eab56', '69787351', '2.8.1');
 
 -- --------------------------------------------------------
 
