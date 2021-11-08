@@ -12,6 +12,8 @@
     <?php include 'informasi.php'; ?>
 <?php elseif ($pg == 'dataujian') : ?>
     <?php include 'mod_sinkron/dataujian.php'; ?>
+<?php elseif ($pg == 'kirimnilai') : ?>
+    <?php include 'mod_sinkron/pusat/kirimnilai.php'; ?>
 <?php elseif ($pg == 'pengumuman') : ?>
     <?php include 'pengumuman.php'; ?>
 <?php elseif ($pg == 'guru') : ?>

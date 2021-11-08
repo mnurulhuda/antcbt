@@ -1,7 +1,7 @@
 <?php
 
-require("../config/config.default.php");
-require("../config/config.function.php");
+require("../../config/config.default.php");
+require("../../config/config.function.php");
 cek_session_admin();
 $kode = $_POST['id'];
 

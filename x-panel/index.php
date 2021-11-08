@@ -289,6 +289,8 @@ endif;
 								<li><a href='?pg=semuanilai'><i class='fas fa-angle-double-right  fa-fw'></i> <span>Semua Nilai</span></a></li>
 								<?php if ($setting['server'] == 'lokal') : ?>
 									<li><a href='?pg=dataujian'><i class='fas fa-angle-double-right fa-fw'></i> <span>Kirim Nilai</span></a></li>
+								<?php else: ?>
+									<li><a href='?pg=kirimnilai'><i class='fas fa-angle-double-right fa-fw'></i> <span>Kirim Nilai</span></a></li>
 								<?php endif ?>
 							</ul>
 						</li>

@@ -13,6 +13,7 @@ if ($ac == '') :
                     <h3 class='box-title'><i class='fa fa-briefcase'></i> Data Bank Soal</h3>
                     <div class='box-tools pull-right '>
                         <?php if ($setting['server'] == 'pusat') : ?>
+                            <button id='btnkirimsoal' class='btn btn-sm btn-info'><i class='fa fa-paper-plane'></i> Kirim</button>
                             <button id='btnnonaktif' class='btn btn-sm btn-warning'>Nonaktifkan</button>
                             <button id='btnhapusbank' class='btn btn-sm btn-danger'><i class='fa fa-trash'></i> <span class='hidden-xs'>Hapus</span></button>
                             <button class='btn btn-sm btn-flat btn-success' data-toggle='modal' data-target='#tambahbanksoal'><i class='glyphicon glyphicon-plus'></i> <span class='hidden-xs'>Tambah Bank Soal</span></button>
@@ -1071,6 +1072,49 @@ if ($ac == '') :
                                         opacity: "hide"
                                     }, "slow");
                                 })
+                            }
+                        }
+                    })
+                }
+            });
+            return false;
+        });
+
+        $("#btnkirimsoal").click(function() {
+            i = 0;
+            id_array = new Array();
+            $("input.cekpilih:checked").each(function() {
+                id_array[i] = $(this).val();
+                i++;
+            });
+            swal({
+                title: 'Bank Soal Terpilih ' + i,
+                text: 'Apakah kamu yakin akan mengirim data bank soal yang sudah dipilih  ini ??',
+                type: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Kirim!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: 'mod_sinkron/pusat/prosessoal.php',
+                        data: "kode=" + id_array,
+                        type: "POST",
+                        success: function(respon) {
+                            console.log(respon);
+                            if (respon == 'OK') {
+                                iziToast.success({
+                                    title: 'Mantap!',
+                                    message: 'Soal berhasil dikirim',
+                                    position: 'topRight'
+                                });
+                            } else {
+                                iziToast.error({
+                                    title: 'Maaf!',
+                                    message: respon,
+                                    position: 'topRight'
+                                });
                             }
                         }
                     })
