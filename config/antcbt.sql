@@ -372,7 +372,8 @@ CREATE TABLE `referensi_jurusan` (
 
 CREATE TABLE `ruang` (
   `kode_ruang` varchar(10) NOT NULL,
-  `keterangan` varchar(30) NOT NULL
+  `keterangan` varchar(30) NOT NULL,
+  `proktor` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

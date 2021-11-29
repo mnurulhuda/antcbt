@@ -297,9 +297,9 @@ endif;
 						<li class='treeview'>
 							<a href='#'><i class="fas fa-print side-menu-icon fa-fw"></i><span> Cetak </span><span class='pull-right-container'> <i class='fa fa-angle-down pull-right'></i> </span></a>
 							<ul class='treeview-menu'>
-								<li><a href='?pg=absen'><i class='fas fa-angle-double-right fa-fw'></i> <span> Daftar Hadir</span></a></li>
 								<li><a href='?pg=kartu'><i class='fas fa-angle-double-right fa-fw'></i> <span> Cetak Kartu</span></a></li>
-								<li><a href='?pg=berita'><i class='fas fa-angle-double-right fa-fw'></i> <span> Berita Acara</span></a></li>
+								<li><a href='?pg=absen'><i class='fas fa-angle-double-right fa-fw'></i> <span> Daftar Hadir</span></a></li>
+								<!-- <li><a href='?pg=berita'><i class='fas fa-angle-double-right fa-fw'></i> <span> Berita Acara</span></a></li> -->
 							</ul>
 						</li>
 

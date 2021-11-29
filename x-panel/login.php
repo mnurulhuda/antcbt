@@ -138,7 +138,7 @@ if (isset($_POST['submit'])) {
 
 					<div class="wrap-input100 validate-input p-t-50" data-validate="Username is required">
 						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" placeholder="Username...">
+						<input class="input100" autofocus type="text" name="username" placeholder="Username...">
 						<span class="focus-input100"></span>
 					</div>
 
