@@ -12,7 +12,8 @@ defined('APLIKASI') or exit('Anda tidak dizinkan mengakses langsung script ini!'
                 <form id="formtambahujian" method='post'>
                     <div class='form-group'>
                         <label>Nama Bank Soal</label>
-                        <select name='idmapel' class='form-control' required='true'>
+                        <select name='idmapel[]' class='select2 form-control' required='true' multiple='multiple' style="width: 100%">
+                        <!-- <select name='idmapel' class='form-control' required='true'> -->
                             <?php
                             if ($pengawas['level'] == 'admin') {
                                 $namamapelx = mysqli_query($koneksi, "SELECT * FROM mapel where status='1' order by nama ASC");
@@ -536,26 +537,27 @@ defined('APLIKASI') or exit('Anda tidak dizinkan mengakses langsung script ini!'
                 type: 'POST',
                 url: 'mod_jadwal/crud_jadwal.php?pg=tambah',
                 data: $(this).serialize(),
+                dataType: 'json',
 
                 success: function(data) {
-                    console.log(data);
-                    if (data == 'OK') {
-                        iziToast.success({
-                            title: 'Mantap!',
-                            message: 'data berhasil disimpan',
-                            position: 'topRight'
-                        });
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 2000);
-                    } else {
-                        iziToast.error({
-                            title: 'Maaf!',
-                            message: data,
-                            position: 'topRight'
-                        });
-                    }
-
+                    $.each(data, function(k, v) {
+                        if (v == 'OK') {
+                            iziToast.success({
+                                title: 'Mantap!',
+                                message: 'data berhasil disimpan',
+                                position: 'topRight'
+                            });
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 2000);
+                        } else {
+                            iziToast.error({
+                                title: 'Maaf!',
+                                message: v,
+                                position: 'topRight'
+                            });
+                        }
+                    });
                 }
             });
             return false;

@@ -193,6 +193,8 @@ if ($_POST) {
 
     $pg = 0;
     $es = 0;
+    $g = 0;
+    $gagal = "";
     foreach ($quesions as $key => $value) {
         if (count($value) == 1) {
             $jns = 2;
@@ -207,7 +209,6 @@ if ($_POST) {
         } else {
             $no  = $key;
             $jns = 1;
-            $pg++;
         }
 
         if (!isset($value['audio'])) {
@@ -219,8 +220,14 @@ if ($_POST) {
             mysqli_query($koneksi, "DELETE FROM soal WHERE id_mapel = $id_mapel AND nomor = $no");
         }
         $exec = mysqli_query($koneksi, "INSERT INTO soal (id_mapel,nomor,soal,pilA,pilB,pilC,pilD,pilE,jawaban,jenis,file1) VALUES ('$id_mapel','$no','$value[0]','$value[1]','$value[2]','$value[3]','$value[4]','$value[5]','$value[kunci]','$jns','$value[audio]')");
+        if ($exec) {
+            $pg++;
+        } else {
+            $g++;
+            $gagal .= $no.",";
+        }
     }
-    $hasil["hasil"] = "Jumlah Soal Pilihan Ganda = " . $pg . ".\nJumlah soal Essai = " . $es;
+    $hasil["hasil"] = "Jumlah Soal Pilihan Ganda = " . $pg . ".\nJumlah soal gagal masuk = " . $g . ", Nomor " . $gagal . ".\nJumlah soal Essai = " . $es;
     echo json_encode($hasil);
 } else {
     echo "404";
