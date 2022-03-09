@@ -15,7 +15,7 @@ if ($ac == '') :
                         <?php if ($setting['server'] == 'pusat') : ?>
                             <button id='btnkirimsoal' class='btn btn-sm btn-info'><i class='fa fa-paper-plane'></i> Kirim</button>
                             <button id='btnnonaktif' class='btn btn-sm btn-warning'>Nonaktifkan</button>
-                            <button id='btnhapusbank' class='btn btn-sm btn-danger'><i class='fa fa-trash'></i> <span class='hidden-xs'>Hapus</span></button>
+                            <!-- <button id='btnhapusbank' class='btn btn-sm btn-danger'><i class='fa fa-trash'></i> <span class='hidden-xs'>Hapus</span></button> -->
                             <button class='btn btn-sm btn-flat btn-success' data-toggle='modal' data-target='#tambahbanksoal'><i class='glyphicon glyphicon-plus'></i> <span class='hidden-xs'>Tambah Bank Soal</span></button>
                         <?php endif ?>
                     </div>

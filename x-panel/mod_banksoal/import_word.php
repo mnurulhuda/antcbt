@@ -139,7 +139,7 @@ if ($_POST) {
                                     echo json_encode(["status" => "0", "hasil" => "Kunci jawaban pada soal nomor " . $cqno . " tidak ada."]);
                                     exit;
                                 } else {
-                                    $options['kunci']     = trim($correct[1]);
+                                    $options['kunci']     = trim(strtoupper($correct[1]));
                                 }
                             } else {
                                 echo json_encode(["status" => "0", "hasil" => "Format kunci jawaban pada soal nomor " . $cqno . " salah."]);

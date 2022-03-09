@@ -9,6 +9,7 @@ $idserver = $setting['kode_sekolah'];
 echo "<link rel='stylesheet' href='$homeurl/dist/css/cetak.min.css'>";
 
 $getruang = @$_GET['id_ruang'];
+$getproktor = @$_GET['proktor'];
 
 $lebarusername = '10%';
 $lebarnopes = '17%';
@@ -82,7 +83,7 @@ $date = date_create($cektanggal['tgl_ujian']);
                 <tr>
                 <td>
                     <p style="line-height: 2em; font-size: 13">Pada hari ini &nbsp;<span style='width:90px;'>&nbsp;</span>&nbsp;
-                    tanggal &nbsp;<span style='width:150px;'>&nbsp;</span>&nbsp; bulan &nbsp;<span style='width:150px;'>&nbsp;</span>&nbsp; tahun Dua Ribu Dua Puluh Satu telah
+                    tanggal &nbsp;<span style='width:150px;'>&nbsp;</span>&nbsp; bulan &nbsp;<span style='width:150px;'>&nbsp;</span>&nbsp; tahun <?= ucwords(terbilang(date("Y"))) ?> telah
                     diselenggarakan <?= ucwords($jenis['nama']) ?> untuk mata pelajaran &nbsp;<span
                         style='width:240px;'>&nbsp;</span>&nbsp; dari pukul &nbsp;<span style='width:90px;'>&nbsp;</span>&nbsp;
                     sampai dengan pukul &nbsp;<span style='width:90px;'>&nbsp;</span>&nbsp; di Ruang <?= $ruangan ?> Sesi
@@ -170,7 +171,7 @@ $date = date_create($cektanggal['tgl_ujian']);
                         </table>
                     </td>
                     <td style="text-align:center; width:200">
-                        Proktor<BR><BR><BR><BR><BR>(<?= $proktor ?>)
+                        Proktor<BR><BR><BR><BR><BR>(<?= $getproktor ?>)
                     </td>
                     <td style="text-align:center; width:175">
                         Pengawas<BR><BR><BR><BR><BR>(<nip></nip>)

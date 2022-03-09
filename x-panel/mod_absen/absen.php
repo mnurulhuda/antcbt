@@ -21,6 +21,10 @@
                             <?php endwhile ?>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="">Nama Proktor</label>
+                        <input type="text" class="form-control" name="proktor" id="proktor" value="" required onchange=printabsen();>
+                    </div>
                 </div>
             </div><!-- /.box-body -->
         </div><!-- /.box -->
@@ -30,6 +34,7 @@
 <script>
     function printabsen() {
         var idruang = $('#absenruang option:selected').val();
-        $('#loadabsen').attr('src', 'mod_absen/print_absen.php?id_ruang=' + idruang);
+        var proktor = $('#proktor').val();
+        $('#loadabsen').attr('src', 'mod_absen/print_absen.php?id_ruang=' + idruang + '&proktor=' + proktor);
     }
 </script>
