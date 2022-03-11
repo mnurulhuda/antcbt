@@ -12,7 +12,7 @@ $getruang = @$_GET['id_ruang'];
 $getproktor = @$_GET['proktor'];
 
 $lebarusername = '10%';
-$lebarnopes = '17%';
+$lebarnopes = '18%';
 
 if (date('m') >= 7 and date('m') <= 12) {
     $ajaran = date('Y') . "/" . (date('Y') + 1);
@@ -83,7 +83,7 @@ $date = date_create($cektanggal['tgl_ujian']);
                 <tr>
                 <td>
                     <p style="line-height: 2em; font-size: 13">Pada hari ini &nbsp;<span style='width:90px;'>&nbsp;</span>&nbsp;
-                    tanggal &nbsp;<span style='width:150px;'>&nbsp;</span>&nbsp; bulan &nbsp;<span style='width:150px;'>&nbsp;</span>&nbsp; tahun <?= ucwords(terbilang(date("Y"))) ?> telah
+                    tanggal &nbsp;<span style='width:150px;'>&nbsp;</span>&nbsp; bulan &nbsp;<span style='width:90px;'>&nbsp;</span>&nbsp; tahun <?= ucwords(terbilang(date("Y"))) ?> telah
                     diselenggarakan <?= ucwords($jenis['nama']) ?> untuk mata pelajaran &nbsp;<span
                         style='width:240px;'>&nbsp;</span>&nbsp; dari pukul &nbsp;<span style='width:90px;'>&nbsp;</span>&nbsp;
                     sampai dengan pukul &nbsp;<span style='width:90px;'>&nbsp;</span>&nbsp; di Ruang <?= $ruangan ?> Sesi
@@ -100,7 +100,7 @@ $date = date_create($cektanggal['tgl_ujian']);
                 <tr height=40px>
                     <th>No.</th>
                     <!-- <th>Username</th> -->
-                    <th>Nomor Induk Siswa</th>
+                    <th>Nomor Peserta</th>
                     <th>Nama Peserta<BR> </th>
                     <th>Kelas</th>
                     <th>Tanda Tangan</th>
@@ -214,7 +214,7 @@ $date = date_create($cektanggal['tgl_ujian']);
             <td>
                 <p style="line-height: 2em; font-size: 13">Pada hari ini &nbsp;<span style='width:90px;'>&nbsp;</span>&nbsp;
                 tanggal &nbsp;<span style='width:150px;'>&nbsp;</span>&nbsp; bulan &nbsp;<span style='width:90px;'>&nbsp;</span>&nbsp;
-                tahun Dua Ribu Dua Puluh Satu telah diselenggarakan <?= ucwords($jenis['nama']) ?> untuk mata pelajaran &nbsp;<span
+                tahun <?= ucwords(terbilang(date("Y"))) ?> telah diselenggarakan <?= ucwords($jenis['nama']) ?> untuk mata pelajaran &nbsp;<span
                     style='width:240px;'>&nbsp;</span>&nbsp; dari pukul &nbsp;<span style='width:90px;'>&nbsp;</span>&nbsp;
                 sampai dengan pukul &nbsp;<span style='width:90px;'>&nbsp;</span>&nbsp; di Ruang <?= $ruangan ?> Sesi
                 <?= $sesi ?>.</p>
@@ -231,7 +231,7 @@ $date = date_create($cektanggal['tgl_ujian']);
             <tr height=40px>
                 <th>No.</th>
                 <!-- <th>Username</th> -->
-                <th>Nomor Induk Siswa</th>
+                <th>Nomor Peserta</th>
                 <th>Nama Peserta<BR> </th>
                 <th>Kelas</th>
                 <th>Tanda Tangan</th>
