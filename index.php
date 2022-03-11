@@ -281,7 +281,7 @@ $tglsekarang = time();
                                 <div class='box-body'>
                                     <?php
 
-                                    $mapelQ = mysqli_query($koneksi, "SELECT * FROM ujian WHERE (level='$level' or level='semua') AND sesi='$idsesi' AND status='1' ORDER BY tgl_ujian ");
+                                    $mapelQ = mysqli_query($koneksi, "SELECT ujian.*, mapel.soal_agama FROM ujian JOIN mapel ON mapel.id_mapel=ujian.id_mapel WHERE (mapel.level='$level' or mapel.level='semua') AND sesi='$idsesi' AND ujian.status='1' ORDER BY tgl_ujian ");
 
                                     ?>
                                     <?php while ($mapelx = mysqli_fetch_array($mapelQ)) : ?>
