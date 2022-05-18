@@ -1,6 +1,8 @@
 <?php
 require "../../../config/config.default.php";
 
+$domain = 'https://nilai.abdinegara.com';
+
 if ($koneksi) {
     $kode = $_POST['kode'];
     $query = mysqli_query($koneksi, "SELECT * FROM mapel WHERE id_mapel in (" . $kode . ")");
@@ -18,7 +20,7 @@ if ($koneksi) {
         }
         $payload = json_encode($array_mapel);
 
-        $url = 'https://nilai.abdinegara.com/syncsoal.php?token=' . $setting['token_api'];
+        $url = $domain.'/syncsoal.php?token=' . $setting['token_api'];
 
 
         //Initiate cURL.

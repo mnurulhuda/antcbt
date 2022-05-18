@@ -1,6 +1,9 @@
 <?php
 require "../../../config/config.default.php";
 require "../../../config/config.function.php";
+
+$domain = 'https://nilai.abdinegara.com';
+
 cek_session_admin();
 if ($koneksi) {
     $idujian = $_POST['id'];
@@ -13,7 +16,7 @@ if ($koneksi) {
         }
         $payload = json_encode($array_nilai);
 
-        $url = 'https://nilai.abdinegara.com/syncnilai.php?token=' . $setting['token_api'];
+        $url = $domain.'/syncnilai.php?token=' . $setting['token_api'];
 
 
         //Initiate cURL.
